@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Urban Railway Signalling - Wayside / Trackside / OCC / Onboard</title>
+<style>
+  body { font-family: Georgia, "Times New Roman", serif; max-width: 900px; margin: 24px auto; padding: 0 16px; color: #111; line-height: 1.45; }
+  h1 { font-size: 1.45rem; }
+  h2 { font-size: 1.15rem; margin-top: 1.6em; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 18px; font-size: 0.88rem; }
+  th, td { border: 1px solid #444; padding: 6px 8px; vertical-align: top; text-align: left; }
+  th { background: #222; color: #fff; }
+  tr:nth-child(even) td { background: #f6f6f6; }
+  pre { background: #f2f2f2; padding: 10px; overflow-x: auto; font-size: 0.85rem; }
+  .hint { background: #fff8e1; border: 1px solid #e0c96a; padding: 10px 12px; margin: 16px 0; }
+  @media print { body { margin: 0; } .hint { display: none; } }
+</style>
+</head>
+<body>
+<div class="hint"><b>To save as PDF:</b> use your browser menu → Print → Save as PDF / Destination: Save as PDF.</div>
+
+<h1>Urban Railway Signalling: Wayside, Trackside, OCC &amp; Onboard</h1>
+<p>Here’s a clear way to untangle the terms, then a practical equipment table for urban railway signalling (CBTC / ATC style).</p>
+
+<h2>Terminology that causes the confusion</h2>
+<table>
+<tr><th>Term</th><th>What people usually mean</th><th>Better mental model</th></tr>
+<tr><td><b>Wayside</b></td><td>Equipment fixed along the line, <b>not</b> on the train</td><td>“Beside the way” = station rooms, cabinets, antennae, interlocking rooms, balises</td></tr>
+<tr><td><b>Trackside</b></td><td>Equipment <b>very close to / on the track</b></td><td>Subset of wayside: axle counters, point machines, track circuits, balises, loops</td></tr>
+<tr><td><b>Station / equipment room</b></td><td>Indoor wayside (often still called “wayside”)</td><td>Zone controllers, interlocking computers, radio base stations</td></tr>
+<tr><td><b>Onboard (trainborne)</b></td><td>Equipment <b>on the train</b></td><td>Vehicle Computer, ATP/ATO, odometry, radio, antennas</td></tr>
+<tr><td><b>OCC / Control Center</b></td><td>Central operations room + servers</td><td>ATS/CTC, SCADA, dispatcher HMI, central radio / network</td></tr>
+</table>
+
+<p><b>Rule of thumb:</b><br>
+Wayside = all fixed ground equipment.<br>
+Trackside = the outdoor-near-track part of wayside.<br>
+So people saying “trackside” and “wayside” interchangeably are often talking about the same <i>ground side</i>, but trackside is more specific.</p>
+
+<pre>OCC  &lt;── network/radio ──&gt;  Wayside (rooms + trackside)  &lt;── radio/balise/loop ──&gt;  Onboard</pre>
+
+<h2>Hardware by location (urban signalling)</h2>
+<table>
+<tr><th>Location</th><th>Typical equipment / devices</th><th>Mainly communicates with</th><th>Role (short)</th></tr>
+<tr><td>OCC</td><td>ATS / CTC servers &amp; workstations</td><td>Wayside (ZC/IL), sometimes onboard via radio network</td><td>Supervision, routing, schedules, alarms</td></tr>
+<tr><td>OCC</td><td>SCADA / power &amp; facility HMI</td><td>Wayside RTUs, substations, tunnel systems</td><td>Power, ventilation, doors, fire</td></tr>
+<tr><td>OCC</td><td>Central radio / NMS / CCTV / PA</td><td>Wayside base stations, cameras, speakers</td><td>Comms &amp; situational awareness</td></tr>
+<tr><td>Wayside – equipment room</td><td>Zone Controller / Wayside ATP computer (CBTC)</td><td>OCC, adjacent wayside, onboard (via radio)</td><td>Movement authority, train tracking</td></tr>
+<tr><td>Wayside – equipment room</td><td>Interlocking (CBI / SSI)</td><td>OCC, trackside objects, wayside ATP</td><td>Points, signals, routes, locking</td></tr>
+<tr><td>Wayside – equipment room / trackside cabinets</td><td>Object controllers / I/O</td><td>Interlocking ↔ trackside objects</td><td>Drive/read points, signals, detectors</td></tr>
+<tr><td>Wayside – radio</td><td>Radio base stations / APs (Wi‑Fi, LTE, TETRA, proprietary)</td><td>Onboard radio + backbone to OCC/ZC</td><td>Bidirectional CBTC data</td></tr>
+<tr><td>Trackside</td><td>Point / switch machines</td><td>Interlocking via object controller</td><td>Move &amp; lock points</td></tr>
+<tr><td>Trackside</td><td>Signals / indicators (if used; often reduced in CBTC)</td><td>Interlocking</td><td>Aspect display / fallback</td></tr>
+<tr><td>Trackside</td><td>Axle counters / track circuits</td><td>Interlocking / train detection</td><td>Occupancy (fallback or primary in non‑CBTC)</td></tr>
+<tr><td>Trackside</td><td>Balises / beacons / tags</td><td>Onboard reader (one‑way or limited two‑way)</td><td>Absolute position, speed limits, mode</td></tr>
+<tr><td>Trackside</td><td>Inductive loops / waveguide / leaky feeder</td><td>Onboard antennas</td><td>Continuous / semi‑continuous data or radio</td></tr>
+<tr><td>Trackside / platform</td><td>Platform screen doors (PSD) controllers</td><td>Wayside ATP / interlocking / onboard (door enable)</td><td>Align &amp; open doors safely</td></tr>
+<tr><td>Trackside / platform</td><td>Train detection at berth, gap fillers, etc.</td><td>Wayside ATP / PSD / interlocking</td><td>Precise stopping / door zone</td></tr>
+<tr><td>Onboard</td><td>Vehicle On‑Board Controller (VOBC) / ATP–ATO</td><td>Wayside ZC (radio), balises, OCC (via network)</td><td>Enforce MA, speed, ATO driving</td></tr>
+<tr><td>Onboard</td><td>Radio modem / antenna</td><td>Wayside radio BS</td><td>Continuous CBTC link</td></tr>
+<tr><td>Onboard</td><td>Balise antenna / interrogator</td><td>Trackside balises</td><td>Spot localisation / data</td></tr>
+<tr><td>Onboard</td><td>Odometry (tachometers, IMU, radar, Doppler)</td><td>VOBC (local)</td><td>Relative position &amp; speed</td></tr>
+<tr><td>Onboard</td><td>TIU / train interface (brakes, doors, traction)</td><td>VOBC ↔ train systems</td><td>Apply brake, door permit, propulsion cut</td></tr>
+<tr><td>Onboard</td><td>Driver HMI / DMI</td><td>VOBC</td><td>Display MA, speed, faults</td></tr>
+</table>
+
+<h2>Who talks to whom</h2>
+<table>
+<tr><th>From → To</th><th>Typical link</th><th>What is exchanged</th></tr>
+<tr><td>OCC ↔ Wayside rooms</td><td>Fibre / IP backbone</td><td>Routes, schedules, status, alarms, remote commands</td></tr>
+<tr><td>Wayside rooms ↔ Trackside objects</td><td>Copper / fibre / fieldbus to object controllers</td><td>Point position, signal aspect, occupancy, commands</td></tr>
+<tr><td>Wayside (ZC) ↔ Onboard</td><td>Radio (primary in CBTC)</td><td>Movement authority, train position reports, health</td></tr>
+<tr><td>Trackside balises ↔ Onboard</td><td>Short‑range RF / inductive</td><td>Spot data (position ID, gradients, SSR) — usually not via OCC</td></tr>
+<tr><td>OCC ↔ Onboard</td><td>Usually indirect (via wayside radio network / ATS)</td><td>Rarely a direct peer link in classic CBTC designs</td></tr>
+</table>
+
+<h2>Quick glossary to stop the swap-ups</h2>
+<table>
+<tr><th>If someone says…</th><th>Ask / interpret as…</th></tr>
+<tr><td>“Wayside equipment”</td><td>Anything fixed on ground: rooms and track</td></tr>
+<tr><td>“Trackside equipment”</td><td>Only outdoor devices on/beside the rail</td></tr>
+<tr><td>“Field equipment”</td><td>Often = trackside objects + cabinets</td></tr>
+<tr><td>“Central / OCC equipment”</td><td>ATS, SCADA, dispatchers — not on the line</td></tr>
+<tr><td>“Trainborne / onboard”</td><td>Only what rides with the train</td></tr>
+<tr><td>“Signalling system”</td><td>All three layers together (OCC + wayside + onboard)</td></tr>
+</table>
+
+<p><b>One sentence that helps:</b><br>
+Trackside is a place (next to the rails); wayside is a role (ground‑fixed signalling); OCC is the brain; onboard is the train.</p>
+</body>
+</html>
