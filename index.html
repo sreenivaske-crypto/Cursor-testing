@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arrow Snake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-deep: #0b1f1c;
+      --bg-mid: #12352f;
+      --panel: rgba(10, 28, 25, 0.72);
+      --line: rgba(160, 220, 190, 0.18);
+      --text: #e8f6ef;
+      --muted: #8fb5a8;
+      --accent: #3dd68c;
+      --accent-hot: #ffb454;
+      --danger: #ff6b6b;
+      --snake: #5ef0a8;
+      --snake-head: #b8ffd9;
+      --food: #ffb454;
+      --grid: rgba(255, 255, 255, 0.035);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Outfit", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(61, 214, 140, 0.16), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 90% 80%, rgba(255, 180, 84, 0.1), transparent 50%),
+        linear-gradient(165deg, var(--bg-mid), var(--bg-deep) 55%, #071412);
+      overflow: hidden;
+    }
+
+    .shell {
+      width: min(92vw, 560px);
+      display: grid;
+      gap: 1rem;
+      animation: rise 0.6s ease-out both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: grid;
+      gap: 0.2rem;
+    }
+
+    .brand h1 {
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .brand p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .scores {
+      display: grid;
+      gap: 0.35rem;
+      text-align: right;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.85rem;
+    }
+
+    .scores span {
+      display: inline-block;
+      min-width: 2ch;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .board-wrap {
+      position: relative;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      background:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+        #0a1815;
+      background-size: 20px 20px, 20px 20px, auto;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+      background: rgba(6, 16, 14, 0.78);
+      text-align: center;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .overlay h2 {
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .overlay p {
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      max-width: 28ch;
+      margin-inline: auto;
+      line-height: 1.4;
+    }
+
+    .overlay kbd {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.06);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.8rem;
+      color: var(--accent-hot);
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">
+        <h1>Arrow Snake</h1>
+        <p>A tiny Windows-ready keyboard game</p>
+      </div>
+      <div class="scores">
+        <div>SCORE <span id="score">0</span></div>
+        <div>BEST <span id="best">0</span></div>
+      </div>
+    </header>
+
+    <div class="board-wrap">
+      <canvas id="game" width="480" height="480" aria-label="Snake game board"></canvas>
+      <div class="overlay" id="overlay">
+        <div>
+          <h2 id="overlay-title">Arrow Snake</h2>
+          <p id="overlay-text">Use the arrow keys to steer. Eat the glowing orbs. Don’t hit yourself or the walls.</p>
+          <p><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> to move · <kbd>Space</kbd> to start</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div><strong>Arrow keys</strong> move</div>
+      <div><strong>Space</strong> start / restart</div>
+    </footer>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+    const scoreEl = document.getElementById("score");
+    const bestEl = document.getElementById("best");
+    const overlay = document.getElementById("overlay");
+    const overlayTitle = document.getElementById("overlay-title");
+    const overlayText = document.getElementById("overlay-text");
+
+    const CELL = 24;
+    const COLS = canvas.width / CELL;
+    const ROWS = canvas.height / CELL;
+    const TICK_MS = 110;
+    const BEST_KEY = "arrow-snake-best";
+
+    const dirs = {
+      ArrowUp: { x: 0, y: -1, name: "up" },
+      ArrowDown: { x: 0, y: 1, name: "down" },
+      ArrowLeft: { x: -1, y: 0, name: "left" },
+      ArrowRight: { x: 1, y: 0, name: "right" },
+    };
+
+    const opposite = {
+      up: "down",
+      down: "up",
+      left: "right",
+      right: "left",
+    };
+
+    let snake;
+    let food;
+    let direction;
+    let pendingDirection;
+    let score;
+    let best = Number(localStorage.getItem(BEST_KEY) || 0);
+    let running = false;
+    let alive = true;
+    let lastTick = 0;
+    let foodPulse = 0;
+
+    bestEl.textContent = String(best);
+
+    function resetGame() {
+      const startX = Math.floor(COLS / 2);
+      const startY = Math.floor(ROWS / 2);
+      snake = [
+        { x: startX, y: startY },
+        { x: startX - 1, y: startY },
+        { x: startX - 2, y: startY },
+      ];
+      direction = dirs.ArrowRight;
+      pendingDirection = direction;
+      score = 0;
+      scoreEl.textContent = "0";
+      alive = true;
+      placeFood();
+    }
+
+    function placeFood() {
+      while (true) {
+        const next = {
+          x: Math.floor(Math.random() * COLS),
+          y: Math.floor(Math.random() * ROWS),
+        };
+        const onSnake = snake.some((part) => part.x === next.x && part.y === next.y);
+        if (!onSnake) {
+          food = next;
+          return;
+        }
+      }
+    }
+
+    function showOverlay(title, text) {
+      overlayTitle.textContent = title;
+      overlayText.textContent = text;
+      overlay.classList.remove("hidden");
+    }
+
+    function hideOverlay() {
+      overlay.classList.add("hidden");
+    }
+
+    function startGame() {
+      resetGame();
+      running = true;
+      hideOverlay();
+      lastTick = performance.now();
+    }
+
+    function endGame() {
+      alive = false;
+      running = false;
+      if (score > best) {
+        best = score;
+        localStorage.setItem(BEST_KEY, String(best));
+        bestEl.textContent = String(best);
+        showOverlay("New best!", `You scored ${score}. Press Space to play again.`);
+      } else {
+        showOverlay("Game over", `You scored ${score}. Press Space to try again.`);
+      }
+    }
+
+    function step() {
+      direction = pendingDirection;
+      const head = snake[0];
+      const next = {
+        x: head.x + direction.x,
+        y: head.y + direction.y,
+      };
+
+      if (next.x < 0 || next.y < 0 || next.x >= COLS || next.y >= ROWS) {
+        endGame();
+        return;
+      }
+
+      if (snake.some((part) => part.x === next.x && part.y === next.y)) {
+        endGame();
+        return;
+      }
+
+      snake.unshift(next);
+
+      if (next.x === food.x && next.y === food.y) {
+        score += 1;
+        scoreEl.textContent = String(score);
+        placeFood();
+      } else {
+        snake.pop();
+      }
+    }
+
+    function drawRoundedCell(x, y, radius, fill) {
+      const px = x * CELL;
+      const py = y * CELL;
+      const pad = 2;
+      const size = CELL - pad * 2;
+      const r = Math.min(radius, size / 2);
+      ctx.beginPath();
+      ctx.moveTo(px + pad + r, py + pad);
+      ctx.arcTo(px + pad + size, py + pad, px + pad + size, py + pad + size, r);
+      ctx.arcTo(px + pad + size, py + pad + size, px + pad, py + pad + size, r);
+      ctx.arcTo(px + pad, py + pad + size, px + pad, py + pad, r);
+      ctx.arcTo(px + pad, py + pad, px + pad + size, py + pad, r);
+      ctx.closePath();
+      ctx.fillStyle = fill;
+      ctx.fill();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      foodPulse = (foodPulse + 0.08) % (Math.PI * 2);
+      const pulse = 0.55 + Math.sin(foodPulse) * 0.25;
+      ctx.save();
+      ctx.globalAlpha = pulse;
+      drawRoundedCell(food.x, food.y, 8, "#ffb454");
+      ctx.restore();
+      ctx.beginPath();
+      ctx.fillStyle = "rgba(255, 180, 84, 0.2)";
+      ctx.arc(
+        food.x * CELL + CELL / 2,
+        food.y * CELL + CELL / 2,
+        CELL * (0.55 + Math.sin(foodPulse) * 0.1),
+        0,
+        Math.PI * 2
+      );
+      ctx.fill();
+
+      snake.forEach((part, index) => {
+        const t = index / Math.max(snake.length - 1, 1);
+        const fill = index === 0 ? "#b8ffd9" : `rgba(94, 240, 168, ${1 - t * 0.45})`;
+        drawRoundedCell(part.x, part.y, index === 0 ? 7 : 5, fill);
+      });
+
+      const head = snake[0];
+      const eyeOffset = {
+        x: direction.x === 0 ? 4 : direction.x * 4,
+        y: direction.y === 0 ? 4 : direction.y * 4,
+      };
+      ctx.fillStyle = "#0b1f1c";
+      const cx = head.x * CELL + CELL / 2;
+      const cy = head.y * CELL + CELL / 2;
+      if (direction.x !== 0) {
+        ctx.beginPath();
+        ctx.arc(cx + eyeOffset.x, cy - 4, 2.2, 0, Math.PI * 2);
+        ctx.arc(cx + eyeOffset.x, cy + 4, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.beginPath();
+        ctx.arc(cx - 4, cy + eyeOffset.y, 2.2, 0, Math.PI * 2);
+        ctx.arc(cx + 4, cy + eyeOffset.y, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function loop(now) {
+      if (running && alive && now - lastTick >= TICK_MS) {
+        step();
+        lastTick = now;
+      }
+      if (snake) draw();
+      requestAnimationFrame(loop);
+    }
+
+    window.addEventListener("keydown", (event) => {
+      if (event.code === "Space") {
+        event.preventDefault();
+        if (!running) startGame();
+        return;
+      }
+
+      const next = dirs[event.key];
+      if (!next) return;
+      event.preventDefault();
+
+      if (!running && alive) {
+        startGame();
+      }
+
+      if (!running) return;
+      if (opposite[direction.name] === next.name) return;
+      pendingDirection = next;
+    });
+
+    resetGame();
+    draw();
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>
