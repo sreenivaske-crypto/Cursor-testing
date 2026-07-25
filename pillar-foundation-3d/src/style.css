@@ -1,0 +1,265 @@
+:root {
+  --ink: #1c241c;
+  --muted: #5d6a5d;
+  --panel: rgba(248, 246, 240, 0.92);
+  --line: rgba(28, 36, 28, 0.12);
+  --accent: #b85c38;
+  --footing: #c4b7a2;
+  --column: #8f9a8a;
+  --beam: #6e7d6e;
+  --soil: #8a6a45;
+  --shadow: 0 18px 50px rgba(20, 28, 20, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+  background: #d7e0d4;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.panel {
+  position: absolute;
+  z-index: 2;
+  backdrop-filter: blur(14px);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.panel.top {
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 22px;
+  border-radius: 18px;
+}
+
+.panel.side {
+  top: 118px;
+  right: 20px;
+  width: min(320px, calc(100vw - 40px));
+  max-height: calc(100vh - 190px);
+  overflow: auto;
+  padding: 18px 20px 20px;
+  border-radius: 18px;
+}
+
+.panel.bottom {
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.sub {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.badge {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(184, 92, 56, 0.12);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.side h2 {
+  margin: 0 0 10px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.side h2 + .specs,
+.side h2 + .toggles,
+.side h2 + .actions {
+  margin-bottom: 22px;
+}
+
+.specs {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.specs div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.specs dt {
+  color: var(--muted);
+}
+
+.specs dd {
+  margin: 0;
+  font-weight: 500;
+  text-align: right;
+}
+
+.toggles {
+  display: grid;
+  gap: 8px;
+}
+
+.toggles label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.toggles input {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+button {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+button:hover {
+  background: #f3efe6;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 2px;
+}
+
+.swatch.footing {
+  background: var(--footing);
+}
+
+.swatch.column {
+  background: var(--column);
+}
+
+.swatch.beam {
+  background: var(--beam);
+}
+
+.swatch.soil {
+  background: var(--soil);
+}
+
+@media (max-width: 820px) {
+  .panel.top {
+    flex-direction: column;
+  }
+
+  .panel.side {
+    top: auto;
+    bottom: 78px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-height: 38vh;
+  }
+
+  .panel.bottom {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .panel.top {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+}

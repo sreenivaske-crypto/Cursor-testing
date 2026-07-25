@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pillar Foundation — 5-Story Building</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+
+      <header class="panel top">
+        <div>
+          <p class="eyebrow">Structural 3D Model</p>
+          <h1>Pillar Foundation</h1>
+          <p class="sub">Isolated footing system for a 5-story RCC frame</p>
+        </div>
+        <div class="badge">G+4 · 4×3 grid</div>
+      </header>
+
+      <aside class="panel side">
+        <h2>Foundation Specs</h2>
+        <dl class="specs">
+          <div><dt>Footing</dt><dd>2.0 × 2.0 × 0.50 m</dd></div>
+          <div><dt>Column</dt><dd>450 × 450 mm</dd></div>
+          <div><dt>Bay spacing</dt><dd>5.0 m c/c</dd></div>
+          <div><dt>Founding depth</dt><dd>1.8 m below GL</dd></div>
+          <div><dt>Plinth beam</dt><dd>300 × 450 mm</dd></div>
+          <div><dt>Storey height</dt><dd>3.2 m</dd></div>
+          <div><dt>Stories</dt><dd>5 (ground + 4)</dd></div>
+          <div><dt>Assumed SBC</dt><dd>~180 kN/m²</dd></div>
+        </dl>
+
+        <h2>Layers</h2>
+        <div class="toggles" id="toggles">
+          <label><input type="checkbox" data-layer="soil" checked /> Soil cutaway</label>
+          <label><input type="checkbox" data-layer="footings" checked /> Pad footings</label>
+          <label><input type="checkbox" data-layer="beams" checked /> Plinth / floor beams</label>
+          <label><input type="checkbox" data-layer="columns" checked /> Pillars / columns</label>
+          <label><input type="checkbox" data-layer="slabs" checked /> Floor slabs</label>
+          <label><input type="checkbox" data-layer="envelope" checked /> Building envelope</label>
+          <label><input type="checkbox" data-layer="labels" checked /> Dimension labels</label>
+        </div>
+
+        <h2>View</h2>
+        <div class="actions">
+          <button type="button" id="btn-reset">Reset camera</button>
+          <button type="button" id="btn-explode">Exploded view</button>
+        </div>
+      </aside>
+
+      <footer class="panel bottom">
+        <span>Drag to orbit · Scroll to zoom · Right-drag to pan</span>
+        <span class="legend">
+          <i class="swatch footing"></i> Footing
+          <i class="swatch column"></i> Column
+          <i class="swatch beam"></i> Beam
+          <i class="swatch soil"></i> Soil
+        </span>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
