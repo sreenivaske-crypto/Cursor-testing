@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shilpa K.E — Delivery Excellence & Quality Assurance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1c2a32;
+      --ink-soft: #3d4f5a;
+      --muted: #5f7280;
+      --line: #d5dde3;
+      --paper: #f7f5f2;
+      --panel: #ffffff;
+      --accent: #0f6b6b;
+      --accent-deep: #0a4f4f;
+      --accent-soft: #e4f2f1;
+      --gold: #9a7040;
+      --gold-soft: #f4ebe0;
+      --metric-bg: #f0f6f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    html, body {
+      background: #cfd6db;
+      color: var(--ink);
+      font-family: "Source Sans 3", "Segoe UI", sans-serif;
+      font-size: 9.4pt;
+      line-height: 1.35;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      margin: 10px auto;
+      background:
+        radial-gradient(1100px 420px at 0% 0%, #e8f3f2 0%, transparent 55%),
+        radial-gradient(800px 360px at 100% 6%, #f6efe6 0%, transparent 48%),
+        linear-gradient(180deg, #fbfaf8 0%, var(--paper) 100%);
+      box-shadow: 0 10px 30px rgba(28, 42, 50, 0.18);
+      padding: 12mm 14mm 11mm;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+      page-break-inside: avoid;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 6px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 55%, var(--gold) 100%);
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    h1, h2, h3, .brand {
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr 0.95fr;
+      gap: 12px;
+      align-items: end;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 10px;
+    }
+
+    .brand {
+      font-size: 28pt;
+      line-height: 1;
+      color: var(--accent-deep);
+      margin-bottom: 4px;
+    }
+
+    .title-line {
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .contact {
+      font-size: 8.7pt;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+    }
+
+    .contact span::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-right: 7px;
+      transform: translateY(-1px);
+    }
+
+    .snapshot {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      padding: 8px 10px;
+    }
+
+    .snapshot h3 {
+      font-size: 8.5pt;
+      color: var(--accent-deep);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .snapshot ul {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+      font-size: 8.3pt;
+      color: var(--ink-soft);
+    }
+
+    .snapshot li strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .section { margin-bottom: 9px; }
+
+    .section-title {
+      font-size: 11pt;
+      color: var(--accent-deep);
+      margin-bottom: 5px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--line), transparent);
+      transform: translateY(-2px);
+    }
+
+    .summary p {
+      color: var(--ink-soft);
+      font-size: 9.2pt;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .metric {
+      background: var(--metric-bg);
+      border: 1px solid #d7e5e4;
+      padding: 7px 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric .value {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 13pt;
+      color: var(--accent-deep);
+      line-height: 1.05;
+      margin-bottom: 1px;
+    }
+
+    .metric .label {
+      font-size: 8.2pt;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .metric .bench {
+      font-size: 7.6pt;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 12px;
+    }
+
+    .awards {
+      list-style: none;
+      display: grid;
+      gap: 5px;
+    }
+
+    .awards li {
+      background: var(--gold-soft);
+      border-left: 3px solid var(--gold);
+      padding: 5px 8px;
+    }
+
+    .awards strong {
+      display: block;
+      font-size: 8.5pt;
+      color: var(--ink);
+      margin-bottom: 1px;
+    }
+
+    .awards span {
+      font-size: 7.8pt;
+      color: var(--ink-soft);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .chip {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 2px 7px;
+      font-size: 7.7pt;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    .chip.accent {
+      background: var(--accent-soft);
+      border-color: #c5dfde;
+      color: var(--accent-deep);
+    }
+
+    .career-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+    }
+
+    .career-table th {
+      text-align: left;
+      font-size: 7.3pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      padding: 0 0 4px;
+      border-bottom: 1px solid var(--line);
+      font-weight: 600;
+    }
+
+    .career-table td {
+      padding: 3.5px 6px 3.5px 0;
+      border-bottom: 1px solid #e7ecef;
+      vertical-align: top;
+      color: var(--ink-soft);
+    }
+
+    .career-table td:first-child {
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+      padding-right: 10px;
+      width: 28%;
+    }
+
+    .footer-note {
+      margin-top: 6px;
+      font-size: 7.4pt;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .page-label {
+      font-size: 7.8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 7px;
+      margin-bottom: 10px;
+    }
+
+    .detail-header .brand {
+      font-size: 18pt;
+      margin: 0;
+    }
+
+    .detail-header .meta {
+      text-align: right;
+      font-size: 8pt;
+      color: var(--muted);
+    }
+
+    .job {
+      margin-bottom: 9px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e8eef1;
+    }
+
+    .job:last-of-type {
+      border-bottom: none;
+      margin-bottom: 6px;
+      padding-bottom: 0;
+    }
+
+    .job-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .job-head h3 {
+      font-size: 10.5pt;
+      color: var(--accent-deep);
+    }
+
+    .job-dates {
+      font-size: 8.3pt;
+      color: var(--gold);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .job-sub {
+      font-size: 8.3pt;
+      color: var(--ink-soft);
+      margin-bottom: 4px;
+    }
+
+    .job-sub strong { color: var(--ink); font-weight: 600; }
+
+    .bullets {
+      margin-left: 13px;
+      color: var(--ink-soft);
+      font-size: 8.5pt;
+    }
+
+    .bullets li { margin-bottom: 2px; }
+    .bullets li::marker { color: var(--accent); }
+
+    .highlight-row {
+      margin-top: 4px;
+      background: var(--accent-soft);
+      padding: 4px 7px;
+      font-size: 8pt;
+      color: var(--accent-deep);
+      border-left: 3px solid var(--accent);
+    }
+
+    .highlight-row strong { font-weight: 700; }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 12px;
+      margin-top: 2px;
+    }
+
+    .mini-card h4 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 10pt;
+      color: var(--accent-deep);
+      margin-bottom: 4px;
+    }
+
+    .mini-card p, .mini-card li {
+      font-size: 8.4pt;
+      color: var(--ink-soft);
+    }
+
+    .mini-card ul { margin-left: 13px; }
+    .mini-card li { margin-bottom: 2px; }
+
+    .page-num {
+      position: absolute;
+      right: 14mm;
+      bottom: 8mm;
+      font-size: 7.5pt;
+      color: var(--muted);
+    }
+
+    @media print {
+      html, body {
+        background: white;
+        width: 210mm;
+      }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1: SUMMARY -->
+  <section class="page">
+    <header class="hero">
+      <div>
+        <div class="brand">Shilpa K.E</div>
+        <div class="title-line">Senior Lead — Delivery Excellence &amp; Software Quality Assurance</div>
+        <div class="contact">
+          <span>+91 98861 36888</span>
+          <span><a href="mailto:shilpake@hotmail.com">shilpake@hotmail.com</a></span>
+          <span>Bengaluru, India</span>
+        </div>
+      </div>
+      <aside class="snapshot">
+        <h3>At a Glance</h3>
+        <ul>
+          <li><strong>20 years</strong> in SQA, process &amp; delivery governance</li>
+          <li><strong>CMMI L5 · ISO 9001 · ISO 20000 · AS9100 · HIPAA · ITIL</strong></li>
+          <li>Domains: Insurance, Healthcare, Aerospace, Airlines, Product &amp; IMS</li>
+          <li>Clients: J&amp;J, GE, Microsoft, Boeing, Virgin, Sony</li>
+        </ul>
+      </aside>
+    </header>
+
+    <section class="section summary">
+      <h2 class="section-title">Professional Summary</h2>
+      <p>
+        Delivery Excellence and Quality Assurance leader who partners with project and delivery teams to build predictable, audit-ready execution.
+        Proven in CMMI Level 5 and ISO environments—bridging process design, Agile coaching, metrics governance, and stakeholder confidence across global delivery models.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Signature Achievements &amp; Quality Metrics</h2>
+      <div class="metrics">
+        <article class="metric">
+          <div class="value">4.7 / 5</div>
+          <div class="label">Customer Satisfaction (CSAT)</div>
+          <div class="bench">Tech Mahindra vs. typical IT-services CSAT ~4.0–4.2/5</div>
+        </article>
+        <article class="metric">
+          <div class="value">100%</div>
+          <div class="label">SLA on 98% Target</div>
+          <div class="bench">Priority SLA fully met; many programs stabilize near 95%</div>
+        </article>
+        <article class="metric">
+          <div class="value">Zero</div>
+          <div class="label">Major External Audit NCs</div>
+          <div class="bench">Clean AS9100 / ISO cycles with BSI &amp; Bureau Veritas</div>
+        </article>
+        <article class="metric">
+          <div class="value">CMMI L5</div>
+          <div class="label">Best Process Contributor</div>
+          <div class="bench">Recognized for CMMI, ISO &amp; L5 high-maturity excellence</div>
+        </article>
+        <article class="metric">
+          <div class="value">90%+</div>
+          <div class="label">On-Time Delivery</div>
+          <div class="bench">Aerospace at Ignis; IT industry often ~70–80%</div>
+        </article>
+        <article class="metric">
+          <div class="value">Zero</div>
+          <div class="label">Customer Escalations</div>
+          <div class="bench">Sustained across J&amp;J, Boeing &amp; quality-led programs</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section two-col">
+      <div>
+        <h2 class="section-title">Awards &amp; Recognition</h2>
+        <ul class="awards">
+          <li>
+            <strong>Best Contributor — CMMI / ISO / CMMI L5</strong>
+            <span>Recognized for high-maturity practices, audit readiness, and process deployment.</span>
+          </li>
+          <li>
+            <strong>Bravo Award — Q1 2016</strong>
+            <span>Awarded by Process Head for outstanding process leadership.</span>
+          </li>
+          <li>
+            <strong>Pat on the Back — Q3 2015</strong>
+            <span>Recognized by Delivery for dedication and quality-enabled outcomes.</span>
+          </li>
+          <li>
+            <strong>Delivery Excellence Nomination Enabler</strong>
+            <span>Pivotal role positioning the project for Delivery Excellence nomination.</span>
+          </li>
+          <li>
+            <strong>Customer Appreciation — Johnson &amp; Johnson</strong>
+            <span>Appreciated twice; zero escalations with full project focus.</span>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="section-title">Core Strengths</h2>
+        <div class="chips" style="margin-bottom: 8px;">
+          <span class="chip accent">Delivery Excellence / SMO</span>
+          <span class="chip accent">CMMI L5 &amp; High Maturity</span>
+          <span class="chip accent">ISO Lead Auditor</span>
+          <span class="chip">Process Governance</span>
+          <span class="chip">Agile Coaching</span>
+          <span class="chip">Internal &amp; External Audits</span>
+          <span class="chip">RCA / CAPA / CAR</span>
+          <span class="chip">Metrics &amp; QPPO</span>
+          <span class="chip">CSAT / SIP Governance</span>
+          <span class="chip">Risk &amp; EWR</span>
+          <span class="chip">Stage-Gate Reviews</span>
+          <span class="chip">ITIL</span>
+        </div>
+
+        <h2 class="section-title">Certifications</h2>
+        <div class="chips" style="margin-bottom: 8px;">
+          <span class="chip">ISO Lead Auditor</span>
+          <span class="chip">Scrum Master</span>
+          <span class="chip">ITIL</span>
+          <span class="chip">HIPAA</span>
+          <span class="chip">AS9100 Rev C</span>
+          <span class="chip">CMMI Training</span>
+        </div>
+
+        <h2 class="section-title">Tools</h2>
+        <div class="chips">
+          <span class="chip">iPG / SPEED</span>
+          <span class="chip">Jira</span>
+          <span class="chip">ServiceNow</span>
+          <span class="chip">HP ALM</span>
+          <span class="chip">Azure DevOps / TFS</span>
+          <span class="chip">Confluence</span>
+          <span class="chip">SharePoint</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Career Snapshot</h2>
+      <table class="career-table">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Organization</th>
+            <th>Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jun 2024 – Present</td>
+            <td>Mphasis</td>
+            <td>Senior Lead SQA — Insurance Delivery Excellence &amp; Process Governance</td>
+          </tr>
+          <tr>
+            <td>Jul 2019 – May 2024</td>
+            <td>Alphaserve (Eze Castle)</td>
+            <td>Senior Lead SQA — Healthcare Application Services; ISO &amp; SOC 2</td>
+          </tr>
+          <tr>
+            <td>Oct 2017 – Jul 2019</td>
+            <td>GalaxE Solutions</td>
+            <td>Senior Lead SQA — J&amp;J Clinical Analytics; HIPAA &amp; Agile</td>
+          </tr>
+          <tr>
+            <td>Dec 2014 – Oct 2017</td>
+            <td>Tech Mahindra</td>
+            <td>Lead SQA — Virgin Airlines &amp; GE; IMS metrics &amp; SLA governance</td>
+          </tr>
+          <tr>
+            <td>Apr 2012 – Nov 2014</td>
+            <td>Aditi / Symphony Teleca</td>
+            <td>Lead SQA — Microsoft &amp; GE; Agile coaching &amp; BU metrics</td>
+          </tr>
+          <tr>
+            <td>Jun 2010 – Mar 2012</td>
+            <td>Ignis Aerospace &amp; Design</td>
+            <td>SQA Analyst — Boeing; AS9100 Rev C &amp; certification support</td>
+          </tr>
+          <tr>
+            <td>Mar 2006 – May 2009</td>
+            <td>RelQ / EDS (HP)</td>
+            <td>SQA — Sony Multimedia; reviews, audits &amp; CAPA</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="footer-note">Page 1 of 3 — Executive summary. Detailed experience continues on the next pages.</p>
+    </section>
+    <div class="page-num">1 / 3</div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page">
+    <header class="detail-header">
+      <div>
+        <div class="page-label">Detailed Experience</div>
+        <div class="brand">Shilpa K.E</div>
+      </div>
+      <div class="meta">
+        Delivery Excellence · SQA · Process Governance<br />
+        shilpake@hotmail.com · +91 98861 36888
+      </div>
+    </header>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>Mphasis — Senior Lead SQA</h3>
+        <div class="job-dates">Jun 2024 – Present</div>
+      </div>
+      <div class="job-sub"><strong>Domain:</strong> Insurance · Delivery Excellence / Process Governance · Bengaluru</div>
+      <ul class="bullets">
+        <li>Lead engagement startup governance: risk scoring, SOW/SLA review, kick-offs, iPG onboarding, and weekly DE cadence.</li>
+        <li>Run monthly process health checks, PCI/health scoring, Early Warning Risk (EWR) tracking, and Ticket Quality Audits.</li>
+        <li>Facilitate RCA/CAR using 5 Whys, Fishbone, Pareto, and ANOVA; drive corrective/preventive action closure with SEPG.</li>
+        <li>Prepare projects for CMMI assessments and ISO audits; coach PMs through mock audits and artefact readiness.</li>
+        <li>Govern metrics &amp; QPPO submissions, PMR/GTG recovery for RED/AMBER projects, MMR packs, and CSAT SIP evidence.</li>
+        <li>Enable teams through SPEED/iPG training, process deployment, and Train-the-Trainer rollouts.</li>
+      </ul>
+      <div class="highlight-row"><strong>Impact:</strong> Strengthened audit-ready governance and early-risk visibility across insurance delivery engagements.</div>
+    </article>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>Alphaserve Technologies (Eze Castle Integration) — Senior Lead SQA</h3>
+        <div class="job-dates">Jul 2019 – May 2024</div>
+      </div>
+      <div class="job-sub"><strong>Domain:</strong> Healthcare Application Services · India &amp; USA time-zone support</div>
+      <ul class="bullets">
+        <li>Acted as Process Consultant / Agile coach; defined and refreshed QMS processes for ISO-aligned delivery.</li>
+        <li>Embedded Agile ceremonies (grooming, planning, stand-ups, burndown reviews) with stage-gate maturity assessments.</li>
+        <li>Executed work-product compliance audits and tracked utilization, timesheet, SOW, and invoice hygiene.</li>
+        <li>Supported SOC 2 compliance audit readiness across multi-location application service projects.</li>
+      </ul>
+      <div class="highlight-row"><strong>Impact:</strong> Sustained ISO-aligned QMS and SOC 2 readiness for healthcare application services across India–USA delivery.</div>
+    </article>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>GalaxE Solutions — Senior Lead SQA</h3>
+        <div class="job-dates">Oct 2017 – Jul 2019</div>
+      </div>
+      <div class="job-sub"><strong>Client:</strong> Johnson &amp; Johnson · <strong>Domain:</strong> Healthcare Clinical Data Analytics · Belgium &amp; Bengaluru</div>
+      <ul class="bullets">
+        <li>Coached Agile healthcare teams to HIPAA and ISO expectations across release and sprint ceremonies.</li>
+        <li>Ran stage-gate assessments and compliance audits on FS, CRs, impact analysis, test reports, and traceability.</li>
+        <li>Approved Jira user stories only when mandatory quality subtasks (code review, UT, E2E, defect validation) were complete.</li>
+        <li>Presented sprint velocity, acceptance, and quality metrics to leadership for early issue resolution.</li>
+      </ul>
+      <div class="highlight-row"><strong>Impact:</strong> Twice appreciated by customer · Zero escalations · 100% project allocation focus.</div>
+    </article>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>Tech Mahindra — Lead SQA</h3>
+        <div class="job-dates">Dec 2014 – Oct 2017</div>
+      </div>
+      <div class="job-sub"><strong>Clients:</strong> Virgin Airlines &amp; GE · <strong>Domains:</strong> Airlines &amp; Infrastructure Management Services</div>
+      <ul class="bullets">
+        <li>Owned IMS process consulting and operations analytics: MTTR, same-day closure, ageing, chronic tickets, and CI trends.</li>
+        <li>Published engagement performance dashboards covering SLA attainment, rejections, inflow/outflow, and failure modes.</li>
+        <li>Validated SOW/MSA deliverables, penalties, and KPIs; planned/executed audits and drove closure of findings.</li>
+        <li>Identified hotspots via audits, quality gates, and PMRs; led risk mitigation with delivery managers.</li>
+      </ul>
+      <div class="highlight-row">
+        <strong>Impact:</strong> 100% achievement of 98% priority SLA goal · CSAT 4.7/5 · No NCs across three consecutive quarters.
+      </div>
+    </article>
+    <div class="page-num">2 / 3</div>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section class="page">
+    <header class="detail-header">
+      <div>
+        <div class="page-label">Detailed Experience (continued)</div>
+        <div class="brand">Shilpa K.E</div>
+      </div>
+      <div class="meta">
+        Earlier Roles · Education · Training<br />
+        Languages: English, Telugu, Kannada, Hindi
+      </div>
+    </header>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>Aditi Technologies / Symphony Teleca — Lead SQA</h3>
+        <div class="job-dates">Apr 2012 – Nov 2014</div>
+      </div>
+      <div class="job-sub"><strong>Clients:</strong> Microsoft &amp; GE · Product Development, Retail &amp; Cloud Services</div>
+      <ul class="bullets">
+        <li>Process Consultant / Agile coach for application development across West business line and cross-BU programs.</li>
+        <li>Implemented Scrum practices end-to-end; contributed to organization-level Agile process improvements.</li>
+        <li>Defined project quality metrics, ran SQA/release audits, and presented monthly Delivery Unit performance to BU heads.</li>
+        <li>Planned and closed internal quality audits and non-conformances.</li>
+      </ul>
+      <div class="highlight-row">
+        <strong>Impact:</strong> Avg CSAT 4.5/5 · Zero slippage in monthly/sprint audits · Zero quality escalations YoY · 65% BU training coverage.
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>Ignis Aerospace &amp; Design Pvt. Ltd. — SQA Analyst</h3>
+        <div class="job-dates">Jun 2010 – Mar 2012</div>
+      </div>
+      <div class="job-sub"><strong>Client:</strong> Boeing · <strong>Domain:</strong> Aerospace · AS9100 Rev C</div>
+      <ul class="bullets">
+        <li>Enabled project managers on AS9100 Rev C practices; led PMRs, quality reviews, and phase-end maturity audits.</li>
+        <li>Owned GO / NO-GO final delivery reviews and full audit lifecycle including CAPA tracking.</li>
+        <li>Coordinated external certification activities with BSI and Bureau Veritas; delivered process training effectiveness checks.</li>
+      </ul>
+      <div class="highlight-row">
+        <strong>Impact:</strong> 90% on-time delivery · Zero customer escalations · Zero major non-compliance in external certification.
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="job-head">
+        <h3>RelQ Software / EDS (HP Company) — SQA</h3>
+        <div class="job-dates">Mar 2006 – May 2009</div>
+      </div>
+      <div class="job-sub"><strong>Client:</strong> Sony · <strong>Domain:</strong> Multimedia</div>
+      <ul class="bullets">
+        <li>Supported project managers on process implementation; conducted fortnightly SQA reviews and quality review meetings.</li>
+        <li>Participated in PMRs, phase-end/delivery audits, internal quality audits, process trainings, and CAPA cycles.</li>
+      </ul>
+    </article>
+
+    <section class="section" style="margin-top: 6px;">
+      <h2 class="section-title">Education &amp; Professional Training</h2>
+      <div class="edu-grid">
+        <div class="mini-card">
+          <h4>Education</h4>
+          <p><strong>Bachelor of Science</strong> — Computer Science, Mathematics &amp; Statistics<br />
+          Sri Venkateswara University, India · 2002</p>
+        </div>
+        <div class="mini-card">
+          <h4>Professional Training</h4>
+          <ul>
+            <li>Agile Scrum Master</li>
+            <li>ISO 9001 Internal / Lead Auditor</li>
+            <li>AS9100 Rev C Audit Training</li>
+            <li>CMMI Level Training · HIPAA · InfoSec · CM</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Standards &amp; Frameworks</h2>
+      <div class="chips">
+        <span class="chip accent">CMMI Level 5</span>
+        <span class="chip accent">ISO 9001:2015</span>
+        <span class="chip accent">ISO/IEC 20000</span>
+        <span class="chip">AS9100 Rev C</span>
+        <span class="chip">HIPAA</span>
+        <span class="chip">ITIL</span>
+        <span class="chip">SOC 2</span>
+        <span class="chip">Agile / Scrum</span>
+        <span class="chip">Waterfall / V-Model</span>
+        <span class="chip">High-Maturity / Statistical Techniques</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">How I Create Value</h2>
+      <ul class="bullets">
+        <li><strong>Predictable delivery:</strong> Convert process noise into clear health scores, EWRs, and recovery plans leadership can act on.</li>
+        <li><strong>Audit confidence:</strong> Prepare teams for CMMI L5 and ISO scrutiny with mock audits, clean artefacts, and closed CAPA loops.</li>
+        <li><strong>Customer trust:</strong> Keep CSAT, SIP, and escalation posture visible—and improving—through measurable governance.</li>
+      </ul>
+    </section>
+    <div class="page-num">3 / 3</div>
+  </section>
+
+</body>
+</html>
