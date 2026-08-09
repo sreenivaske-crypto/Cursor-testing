@@ -1,0 +1,2 @@
+# Keep rendered videos; ignore build intermediates if relocated here
+*.tmp
