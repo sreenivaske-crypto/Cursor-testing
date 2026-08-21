@@ -3,7 +3,8 @@
 Narrated two-person explainer. Maya Patel (signalling) and Raj Menon (OT cybersecurity) walk through the architecture that kept getting mixed up in earlier chats — trackside vs wayside vs OCC vs onboard — then stay on the tech: the data path into the control centre, NIDS on the backbone, and the OT controls that actually matter.
 
 - **File:** `out/Urban-Railway-Tech-Conversation.mp4`
-- **Format:** 1280×720 MP4 (H.264 + AAC)
+- **Length:** ~8 minutes 30 seconds
+- **Format:** 1280×720 MP4 (H.264 + AAC, 30 fps)
 - **Voices:** two English accents via gTTS (`co.in` / `co.uk`)
 
 ## What the conversation covers
