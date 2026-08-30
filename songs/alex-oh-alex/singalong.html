@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alex, Oh Alex — singalong</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1c2430;
+      --muted: #5b6573;
+      --gold: #c48a2a;
+      --paper: #f6f1e7;
+      --card: #fffdf8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      background: radial-gradient(circle at top, #fff7e6, var(--paper) 45%);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    header {
+      text-align: center;
+      padding: 2.4rem 1.2rem 1rem;
+    }
+    header p.kicker {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--gold);
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      margin: 0 0 0.4rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      margin: 0;
+      font-weight: 600;
+    }
+    header .sub {
+      color: var(--muted);
+      font-style: italic;
+      margin: 0.6rem 0 0;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.2rem 4rem;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid #eadcc4;
+      border-radius: 18px;
+      padding: 1.2rem 1.4rem 1.1rem;
+      margin: 1rem 0;
+      box-shadow: 0 10px 30px rgba(80, 50, 10, 0.04);
+    }
+    h2 {
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 0.7rem;
+    }
+    p.line {
+      margin: 0.15rem 0;
+      font-size: 1.18rem;
+    }
+    .all-in p.line { font-size: 1.28rem; font-weight: 600; }
+    .quiet p.line { color: var(--muted); }
+    audio {
+      width: 100%;
+      margin-top: 1rem;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 0 1rem 3rem;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="kicker">A farewell from the team</p>
+    <h1>Alex, Oh Alex</h1>
+    <p class="sub">We're gonna miss you.</p>
+    <audio controls src="./alex_oh_alex.mp3">
+      Your browser does not support audio.
+    </audio>
+  </header>
+  <main>
+    <section class="quiet">
+      <h2>Intro</h2>
+      <p class="line">Alex… oh Alex…</p>
+      <p class="line">We miss you…</p>
+    </section>
+    <section>
+      <h2>Verse 1</h2>
+      <p class="line">You made the AIR values live in every one of us</p>
+      <p class="line">Agility, rising under a brighter sun</p>
+      <p class="line">Inclusive and clear in the work that we do</p>
+      <p class="line">Responsible for every breakthrough</p>
+    </section>
+    <section>
+      <h2>Pre-chorus</h2>
+      <p class="line">You molded this team with a brilliant strategy</p>
+      <p class="line">You made us believe we would never fail</p>
+      <p class="line">Dynamic at work, with a fire nobody sees coming</p>
+      <p class="line">Alex — you made us who we are</p>
+    </section>
+    <section class="all-in">
+      <h2>Chorus — everybody</h2>
+      <p class="line">Alex, oh Alex — we miss you</p>
+      <p class="line">Thank you for all of the support and the love</p>
+      <p class="line">You pushed us on top, and we never gonna stop</p>
+      <p class="line">Your efforts are never gonna waste</p>
+      <p class="line">Alex, oh Alex — so inspiring</p>
+      <p class="line">We're shouting it loud to the sky</p>
+      <p class="line">You placed the whole team at a brand new height</p>
+      <p class="line">Permanently written in our hearts</p>
+    </section>
+    <section>
+      <h2>Verse 2</h2>
+      <p class="line">Oh Alex, you are so dynamic</p>
+      <p class="line">So energetic, lighting up the room</p>
+      <p class="line">Yes we tried matching you — yes, we tried matching</p>
+      <p class="line">But you are so energetic — and nobody could</p>
+    </section>
+    <section class="quiet">
+      <h2>Bridge</h2>
+      <p class="line">Alex, thank you, Alex</p>
+      <p class="line">For us being on your team</p>
+      <p class="line">And Alex… we're gonna miss you</p>
+    </section>
+    <section class="all-in">
+      <h2>Final chorus</h2>
+      <p class="line">Alex, oh Alex — we miss you</p>
+      <p class="line">Thank you for all of the support and the love</p>
+      <p class="line">You pushed us on top, and we never gonna stop</p>
+      <p class="line">We're shouting it, shouting it loud</p>
+      <p class="line">Permanently written</p>
+      <p class="line">Permanently written</p>
+      <p class="line">In our hearts… for life</p>
+    </section>
+    <section class="quiet">
+      <h2>Outro</h2>
+      <p class="line">Alex… oh Alex…</p>
+      <p class="line">We miss you…</p>
+      <p class="line">Thank you.</p>
+    </section>
+  </main>
+  <footer>Agility · Inclusive · Responsible — AIR lives in all of us.</footer>
+</body>
+</html>
