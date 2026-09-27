@@ -345,7 +345,7 @@ def session_page(c):
         ("Ready", "Bounce, racket in front, split step when they hit."),
         ("Forehand", "Turn early, swing low to high, finish over the shoulder."),
         ("Backhand", "Two hands stay together. Turn, and meet the ball in front."),
-        ("Serve", "Toss in front, bend then reach, hit the ball at the top."),
+        ("Serve", "Toss in front, hit at the top, racket finishes down."),
         ("Volley", "Step in and punch. One hand on the backhand volley."),
         ("Overhead", "Point at the ball, then hit it high, like a serve."),
         ("Slice", "Open the face a little and brush under the ball."),
@@ -464,15 +464,15 @@ def serve_page(c):
         [
             (img("serve-trophy.png"), "1   Toss and trophy"),
             (img("serve-contact.png"), "2   Hit at the top"),
-            (img("serve-finish.png"), "3   Finish across"),
+            (img("serve-finish.png"), "3   Finish down"),
         ],
         [
             ("Toss in front", "Up, and a little forward"),
             ("Bend, then reach", "Knees first, then get tall"),
             ("Hit the top", "Contact as high as you can"),
-            ("Land inside", "Step into the court"),
+            ("Finish down", "Racket by the opposite leg"),
         ],
-        "Toss the ball in front of you, not behind your head.",
+        "The racket ends down by your leg, not up like a forehand.",
     )
 
 
